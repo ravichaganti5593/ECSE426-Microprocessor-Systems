@@ -1,0 +1,9 @@
+	AREA text, CODE, READONLY
+	EXPORT example1
+
+example1 FUNCTION
+	MOV R0, #16
+	BX LR ;
+	ENDFUNC
+	
+	END

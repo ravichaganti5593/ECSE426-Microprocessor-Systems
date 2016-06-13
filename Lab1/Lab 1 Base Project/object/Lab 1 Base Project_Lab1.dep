@@ -1,0 +1,68 @@
+Dependencies for Project 'Lab 1 Base Project', Target 'Lab1': (DO NOT MODIFY !)
+F (.\source\fputc_debug.c)(0x560E12BF)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork -I.\source --c99-I "C:\Users\rchaga2\Downloads\Microprocessor-Fall-2015-master\Lab1\Lab 1 Base Project\RTE"-I "C:\Users\rchaga2\Downloads\Microprocessor-Fall-2015-master\Lab1\Lab 1 Base Project\RTE\Device\STM32F407VG"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F40_41xxx -DHSE_VALUE="8000000" -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4 -D__FPU_PRESENT="1"-o .\object\fputc_debug.o --omf_browse .\object\fputc_debug.crf --depend .\object\fputc_debug.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5605C864)
+I (source\stm32f4xx.h)(0x560E12BF)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cm4.h)(0x55D5C1C4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54C2FC88)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmInstr.h)(0x55D4C7C8)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\cmsis_armcc.h)(0x55D60E7A)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmFunc.h)(0x55D4C7C8)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmSimd.h)(0x55D4C7C8)
+I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include\system_stm32f4xx.h)(0x529F71F2)
+I (source\stm32f4xx_conf.h)(0x560E12BF)
+F (.\source\main.c)(0x560EDD6C)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork -I.\source --c99-I "C:\Users\rchaga2\Downloads\Microprocessor-Fall-2015-master\Lab1\Lab 1 Base Project\RTE"-I "C:\Users\rchaga2\Downloads\Microprocessor-Fall-2015-master\Lab1\Lab 1 Base Project\RTE\Device\STM32F407VG"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F40_41xxx -DHSE_VALUE="8000000" -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4 -D__FPU_PRESENT="1"-o .\object\main.o --omf_browse .\object\main.crf --depend .\object\main.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5605C864)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\arm_math.h)(0x55DF182C)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cm4.h)(0x55D5C1C4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54C2FC88)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmInstr.h)(0x55D4C7C8)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\cmsis_armcc.h)(0x55D60E7A)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmFunc.h)(0x55D4C7C8)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmSimd.h)(0x55D4C7C8)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x54C2FC88)
+I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x54C2FC88)
+I (source\viterbi.h)(0x560EDF8E)
+I (source\test_1.h)(0x560EDD47)
+I (source\utils.h)(0x560E12BF)
+F (.\source\stm32f4xx.h)(0x560E12BF)()
+F (.\source\stm32f4xx_conf.h)(0x560E12BF)()
+F (.\source\utils.c)(0x560ECF15)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork -I.\source --c99-I "C:\Users\rchaga2\Downloads\Microprocessor-Fall-2015-master\Lab1\Lab 1 Base Project\RTE"-I "C:\Users\rchaga2\Downloads\Microprocessor-Fall-2015-master\Lab1\Lab 1 Base Project\RTE\Device\STM32F407VG"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F40_41xxx -DHSE_VALUE="8000000" -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4 -D__FPU_PRESENT="1"-o .\object\utils.o --omf_browse .\object\utils.crf --depend .\object\utils.d)
+I (C:\Keil_v5\ARM\ARMCC\include\float.h)(0x54C2FC88)
+I (source\utils.h)(0x560E12BF)
+I (source\viterbi.h)(0x560EDF8E)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\arm_math.h)(0x55DF182C)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cm4.h)(0x55D5C1C4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54C2FC88)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmInstr.h)(0x55D4C7C8)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\cmsis_armcc.h)(0x55D60E7A)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmFunc.h)(0x55D4C7C8)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmSimd.h)(0x55D4C7C8)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x54C2FC88)
+I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x54C2FC88)
+F (.\source\utils.h)(0x560E12BF)()
+F (.\source\viterbi.c)(0x560EDB1D)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork -I.\source --c99-I "C:\Users\rchaga2\Downloads\Microprocessor-Fall-2015-master\Lab1\Lab 1 Base Project\RTE"-I "C:\Users\rchaga2\Downloads\Microprocessor-Fall-2015-master\Lab1\Lab 1 Base Project\RTE\Device\STM32F407VG"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F40_41xxx -DHSE_VALUE="8000000" -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4 -D__FPU_PRESENT="1"-o .\object\viterbi.o --omf_browse .\object\viterbi.crf --depend .\object\viterbi.d)
+I (source\utils.h)(0x560E12BF)
+I (source\viterbi.h)(0x560EDF8E)
+I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x54C2FC88)
+F (.\source\viterbi.h)(0x560EDF8E)()
+F (.\source\ViterbiUpdate_asm.s)(0x560ED883)(--cpu Cortex-M4.fp -g --apcs=interwork --pd "__MICROLIB SETA 1"-I "C:\Users\rchaga2\Downloads\Microprocessor-Fall-2015-master\Lab1\Lab 1 Base Project\RTE"-I "C:\Users\rchaga2\Downloads\Microprocessor-Fall-2015-master\Lab1\Lab 1 Base Project\RTE\Device\STM32F407VG"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include--pd "__UVISION_VERSION SETA 515" --pd "_RTE_ SETA 1" --pd "STM32F40_41xxx SETA 1"--list .\listings\viterbiupdate_asm.lst --xref -o .\object\viterbiupdate_asm.o --depend .\object\viterbiupdate_asm.d)
+F (.\source\test.c)(0x560ED635)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork -I.\source --c99-I "C:\Users\rchaga2\Downloads\Microprocessor-Fall-2015-master\Lab1\Lab 1 Base Project\RTE"-I "C:\Users\rchaga2\Downloads\Microprocessor-Fall-2015-master\Lab1\Lab 1 Base Project\RTE\Device\STM32F407VG"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F40_41xxx -DHSE_VALUE="8000000" -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4 -D__FPU_PRESENT="1"-o .\object\test.o --omf_browse .\object\test.crf --depend .\object\test.d)
+I (source\viterbi.h)(0x560EDF8E)
+I (source\test.h)(0x560ED335)
+F (.\source\test.h)(0x560ED335)()
+F (.\data.s)(0x560DFB56)(--cpu Cortex-M4.fp -g --apcs=interwork --pd "__MICROLIB SETA 1"-I "C:\Users\rchaga2\Downloads\Microprocessor-Fall-2015-master\Lab1\Lab 1 Base Project\RTE"-I "C:\Users\rchaga2\Downloads\Microprocessor-Fall-2015-master\Lab1\Lab 1 Base Project\RTE\Device\STM32F407VG"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include--pd "__UVISION_VERSION SETA 515" --pd "_RTE_ SETA 1" --pd "STM32F40_41xxx SETA 1"--list .\listings\data.lst --xref -o .\object\data.o --depend .\object\data.d)
+F (.\assembly_test.s)(0x560E011E)(--cpu Cortex-M4.fp -g --apcs=interwork --pd "__MICROLIB SETA 1"-I "C:\Users\rchaga2\Downloads\Microprocessor-Fall-2015-master\Lab1\Lab 1 Base Project\RTE"-I "C:\Users\rchaga2\Downloads\Microprocessor-Fall-2015-master\Lab1\Lab 1 Base Project\RTE\Device\STM32F407VG"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include--pd "__UVISION_VERSION SETA 515" --pd "_RTE_ SETA 1" --pd "STM32F40_41xxx SETA 1"--list .\listings\assembly_test.lst --xref -o .\object\assembly_test.o --depend .\object\assembly_test.d)
+F (.\source\test_1.h)(0x560EDD47)()
+F (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Lib\ARM\arm_cortexM4lf_math.lib)(0x55DF182C)()
+F (RTE\Device\STM32F407VG\RTE_Device.h)(0x560E12BF)()
+F (RTE\Device\STM32F407VG\startup_stm32f40_41xxx.s)(0x560E12BF)(--cpu Cortex-M4.fp -g --apcs=interwork --pd "__MICROLIB SETA 1"-I "C:\Users\rchaga2\Downloads\Microprocessor-Fall-2015-master\Lab1\Lab 1 Base Project\RTE"-I "C:\Users\rchaga2\Downloads\Microprocessor-Fall-2015-master\Lab1\Lab 1 Base Project\RTE\Device\STM32F407VG"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include--pd "__UVISION_VERSION SETA 515" --pd "_RTE_ SETA 1" --pd "STM32F40_41xxx SETA 1"--list .\listings\startup_stm32f40_41xxx.lst --xref -o .\object\startup_stm32f40_41xxx.o --depend .\object\startup_stm32f40_41xxx.d)
+F (RTE\Device\STM32F407VG\system_stm32f4xx.c)(0x560E12BF)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork -I.\source --c99-I "C:\Users\rchaga2\Downloads\Microprocessor-Fall-2015-master\Lab1\Lab 1 Base Project\RTE"-I "C:\Users\rchaga2\Downloads\Microprocessor-Fall-2015-master\Lab1\Lab 1 Base Project\RTE\Device\STM32F407VG"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F40_41xxx -DHSE_VALUE="8000000" -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4 -D__FPU_PRESENT="1"-o .\object\system_stm32f4xx.o --omf_browse .\object\system_stm32f4xx.crf --depend .\object\system_stm32f4xx.d)
+I (.\source\stm32f4xx.h)(0x560E12BF)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cm4.h)(0x55D5C1C4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54C2FC88)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmInstr.h)(0x55D4C7C8)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\cmsis_armcc.h)(0x55D60E7A)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmFunc.h)(0x55D4C7C8)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmSimd.h)(0x55D4C7C8)
+I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include\system_stm32f4xx.h)(0x529F71F2)
+I (.\source\stm32f4xx_conf.h)(0x560E12BF)

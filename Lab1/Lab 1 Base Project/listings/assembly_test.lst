@@ -1,0 +1,174 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             text, CODE, READONLY
+    2 00000000                 IMPORT           ViterbiUpdate_asm
+    3 00000000                 IMPORT           output_array
+    4 00000000                 EXPORT           TEST_BED_ASM
+    5 00000000         
+    6 00000000         TEST_BED_ASM
+    7 00000000 482D            LDR              R0, =input_array
+    8 00000002 492E            LDR              R1, =output_array
+    9 00000004 4B2E            LDR              R3, =hmm_struct
+   10 00000006 F04F 0201       MOV              R2, #1      ; Observation
+   11 0000000A         
+   12 0000000A B500            PUSH             {LR}
+   13 0000000C E92D 0FF0       PUSH             {R4-R11}
+   14 00000010 4C2C            LDR              R4, =ViterbiUpdate_asm
+   15 00000012 47A0            BLX              R4
+   16 00000014         
+   17 00000014 E8BD 0FF0       POP              {R4-R11}
+   18 00000018 F85D EB04       POP              {LR}
+   19 0000001C 4770            BX               LR
+   20 0000001E         
+   21 0000001E 00 00           ALIGN
+   22 00000020 00000004 
+              00000003 hmm_struct
+                               DCD              4, 3
+   23 00000028 3DB851EC 
+              3F666666 
+              3C23D70A 
+              00000000 
+              3DB851EC 
+              3C23D70A 
+              3F666666 
+              00000000 
+              3DB851EC 
+              3EE66666 
+              3C23D70A 
+              3EE66666 
+              3F000000 
+              3F000000 
+              00000000 
+              00000000 transmission
+                               DCFS             0.09, 0.9, 0.01, 0, 0.09, 0.01,
+ 0.9, 0, 0.09, 0.45, 0.01, 0.45, 0.5, 0.5, 0.0, 0.0
+   24 00000068 3F800000 
+              00000000 
+              00000000 
+              00000000 
+              3F800000 
+              00000000 
+              00000000 
+              00000000 
+              3F800000 
+              00000000 
+              3F800000 
+              00000000 emission
+                               DCFS             1, 0, 0,  0, 1, 0,  0, 0, 1, 0,
+ 1, 0
+   25 00000098 00000000 
+              00000000 
+              00000001 
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 input_array
+                               DCD              0, 0, 1, 0, 0, 0, 0, 0
+   26 000000B8         
+   27 000000B8         ;expected 0.000000 --> 0.500000 --> 0.000000 --> 0.50000
+                       0 --> 2.000000 --> 2.000000 --> 2.000000 --> 2.000000
+   28 000000B8         
+   29 000000B8                 END
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
+erwork --depend=.\object\assembly_test.d -o.\object\assembly_test.o -I"C:\Users
+\rchaga2\Downloads\Microprocessor-Fall-2015-master\Lab1\Lab 1 Base Project\RTE"
+ -I"C:\Users\rchaga2\Downloads\Microprocessor-Fall-2015-master\Lab1\Lab 1 Base 
+Project\RTE\Device\STM32F407VG" -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Inc
+lude -IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include --predefine=
+"__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 515" --predefine="_RTE_
+ SETA 1" --predefine="STM32F40_41xxx SETA 1" --list=.\listings\assembly_test.ls
+t assembly_test.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+TEST_BED_ASM 00000000
+
+Symbol: TEST_BED_ASM
+   Definitions
+      At line 6 in file assembly_test.s
+   Uses
+      At line 4 in file assembly_test.s
+Comment: TEST_BED_ASM used once
+emission 00000068
+
+Symbol: emission
+   Definitions
+      At line 24 in file assembly_test.s
+   Uses
+      None
+Comment: emission unused
+hmm_struct 00000020
+
+Symbol: hmm_struct
+   Definitions
+      At line 22 in file assembly_test.s
+   Uses
+      At line 9 in file assembly_test.s
+Comment: hmm_struct used once
+input_array 00000098
+
+Symbol: input_array
+   Definitions
+      At line 25 in file assembly_test.s
+   Uses
+      At line 7 in file assembly_test.s
+Comment: input_array used once
+text 00000000
+
+Symbol: text
+   Definitions
+      At line 1 in file assembly_test.s
+   Uses
+      None
+Comment: text unused
+transmission 00000028
+
+Symbol: transmission
+   Definitions
+      At line 23 in file assembly_test.s
+   Uses
+      None
+Comment: transmission unused
+6 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+External symbols
+
+ViterbiUpdate_asm 00000000
+
+Symbol: ViterbiUpdate_asm
+   Definitions
+      At line 2 in file assembly_test.s
+   Uses
+      At line 14 in file assembly_test.s
+Comment: ViterbiUpdate_asm used once
+output_array 00000000
+
+Symbol: output_array
+   Definitions
+      At line 3 in file assembly_test.s
+   Uses
+      At line 8 in file assembly_test.s
+Comment: output_array used once
+2 symbols
+345 symbols in table

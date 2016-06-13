@@ -1,0 +1,377 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             text, CODE, READONLY
+    2 00000000                 EXPORT           ViterbiUpdate_asm
+    3 00000000         
+    4 00000000         ;int ViterbiUpdate_C(float* InputArray, float* OutputArr
+                       ay, hmm_desc* hmm, int Observation) {
+    5 00000000         ;    int number_of_states = hmm->S;
+    6 00000000         ;    u8 error = 0;
+    7 00000000         ;    float sum = 0;
+    8 00000000         ;
+    9 00000000         ;    printf("###########################################
+                       ##\n");
+   10 00000000         ;    LOOP1
+   11 00000000         ;    for (int k = 0; k < number_of_states; k++) {
+   12 00000000         ;        float p_observation_given_k = get_index(hmm->em
+                       ission, hmm->V, k, Observation);
+   13 00000000         ;        printf("Considering state %d with p_observation
+                       _given_k (%d, %d) is %f\n", k, k, Observation, p_observa
+                       tion_given_k);
+   14 00000000         ;
+   15 00000000         ;        /*void  arm_mult_f32 (float32_t *pSrcA, float32
+                       _t *pSrcB, float32_t *pDst, uint32_t blockSize)*/
+   16 00000000         ;        LOOP2
+   17 00000000         ;        float temporary[number_of_states];
+   18 00000000         ;        for (int x = 0; x < number_of_states; x++) {
+   19 00000000         ;            float value = InputArray[x] * get_index(hmm
+                       ->transition, number_of_states, k, x);
+   20 00000000         ;            printf("###### Evaluating %f * %f = %f\n", 
+                       InputArray[x], get_index(hmm->transition, number_of_stat
+                       es, k, x), value);
+   21 00000000         ;            temporary[x] = value;
+   22 00000000         ;        }
+   23 00000000         ;
+   24 00000000         ;        float* max;
+   25 00000000         ;        LOOP2_5
+   26 00000000         ;        int max_index = argmax(temporary, hmm->S, max);
+                       
+   27 00000000         ;        OutputArray[number_of_states + k] = max_index;
+   28 00000000         ;
+   29 00000000         ;        if (*max < 0) {
+   30 00000000         ;            error = 1;
+   31 00000000         ;        }
+   32 00000000         ;        
+   33 00000000         ;        OutputArray[k] = *max * p_observation_given_k;
+   34 00000000         ;        printf("Max value shall be %f multiply by %f gi
+                       ves %f\n", *max, p_observation_given_k, OutputArray[k]);
+                       
+   35 00000000         ;        sum += OutputArray[k];
+   36 00000000         ;    }
+   37 00000000         ;
+   38 00000000         ;    printf("Sum would be %f\n", sum);
+   39 00000000         ;    LOOP3
+   40 00000000         ;    /*void  arm_scale_f32 (float32_t *pSrc, float32_t s
+                       cale, float32_t *pDst, uint32_t blockSize)*/
+   41 00000000         ;    for (int k = 0; k < number_of_states; k++) {
+   42 00000000         ;        OutputArray[k] = OutputArray[k] / sum;
+   43 00000000         ;    }
+   44 00000000         ;    printf("Conclude for this iteration\n");
+   45 00000000         ;    print_array(OutputArray, number_of_states);
+   46 00000000         ;
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   47 00000000         ;    return error;
+   48 00000000         ;}
+   49 00000000         
+   50 00000000         ViterbiUpdate_asm
+                               FUNCTION
+   51 00000000         ;We have 4, 5, 6, 7, 8, 10 and 11
+   52 00000000         ;Always use 10 & 11 as temp/ calculation var
+   53 00000000         ;R6 = error and S1 = sum and R10 = k and R11 = number_of
+                       _states
+   54 00000000 E92D 0E70       PUSH             {R4, R5, R6, R9, R10, R11}
+   55 00000004 EE70 0AE0       VSUB.F32         S1, S1
+   56 00000008 EE31 1A41       VSUB.F32         S2, S2
+   57 0000000C EE72 2AE2       VSUB.F32         S5, S5
+   58 00000010 EE33 3A43       VSUB.F32         S6, S6
+   59 00000014 EE75 5AE5       VSUB.F32         S11, S11
+   60 00000018 EE36 6A46       VSUB.F32         S12, S12
+   61 0000001C         
+   62 0000001C F04F 0600       MOV              R6, #0
+   63 00000020         
+   64 00000020         ;R10 = k and R11 = number_of_states
+   65 00000020 F04F 0A00       MOV              R10, #0     ; R10 = k
+   66 00000024 F8D3 B000       LDR              R11, [R3]   ; R11 = S = number_
+                                                            of_states
+   67 00000028 E00C            B                LOOP1
+   68 0000002A         BACK1
+   69 0000002A         
+   70 0000002A         ;S1 = sum
+   71 0000002A EEF5 0A40       VCMP.F32         S1, #0.0    ;if sum <= 0
+   72 0000002E EEF1 FA10       VMRS             APSR_nzcv, FPSCR
+   73 00000032 BFD8            IT               LE          ; then
+   74 00000034 2601            MOVLE            R6, #1      ; error = 1
+   75 00000036         
+   76 00000036         ;R10 = k and R11 = number_of_states
+   77 00000036 F04F 0A00       MOV              R10, #0
+   78 0000003A E055            B                LOOP3
+   79 0000003C         BACK3
+   80 0000003C         ;
+   81 0000003C         
+   82 0000003C         ;MOV R4, R1
+   83 0000003C 4630            MOV              R0, R6
+   84 0000003E         
+   85 0000003E E8BD 0E70       POP              {R4, R5, R6, R9, R10, R11}
+   86 00000042 4770            BX               LR          ;
+   87 00000044         
+   88 00000044         
+   89 00000044         LOOP1                                ;R6 = error and R10
+                                                             = k and R11 = numb
+                                                            er_of_states
+   90 00000044 45DA            CMP              R10, R11
+   91 00000046 D0F0            BEQ              BACK1
+   92 00000048         ;S12 = emission[k][Observation]
+   93 00000048         ; Now we have to calculate S * S to get pass emission ar
+                       ray
+   94 00000048 681D            LDR              R5, [R3]
+   95 0000004A FB05 F505       MUL              R5, R5, R5  ; R5 = S * S
+   96 0000004E EA4F 0585       LSL              R5, #2      ; R5 = 4 S^2
+   97 00000052 F105 0508       ADD              R5, #8      ; Offset for S and 
+                                                            V
+   98 00000056 EB03 0405       ADD              R4, R3, R5  ;get emission matri
+
+
+
+ARM Macro Assembler    Page 3 
+
+
+                                                            x address
+   99 0000005A 685D            LDR              R5, [R3, #4] ; R5 = V
+  100 0000005C FB0A F505       MUL              R5, R10, R5 ; R5 = k * V
+  101 00000060 4415            ADD              R5, R5, R2  ; R5 = k * V + Obse
+                                                            rvation
+  102 00000062 EB04 0585       ADD              R5, R4, R5, LSL #2
+  103 00000066 ED95 6A00       VLDR.F32         S12, [R5]   ; p_observation_giv
+                                                            en_k = get_index(hm
+                                                            m->emission, hmm->V
+                                                            , k, Observation);
+  104 0000006A         
+  105 0000006A         ;#########################Matrix term by term multiplica
+                       tion####################
+  106 0000006A F04F 0900       MOV              R9, #0
+  107 0000006E F103 0408       ADD              R4, R3, #8  ; R4 = hmm->transit
+                                                            ion
+  108 00000072 EE75 5AE5       VSUB.F32         S11, S11    ; *max = 0
+  109 00000076         
+  110 00000076 E010            B                LOOP2
+  111 00000078         BACK2
+  112 00000078         ;#########################Check for error###############
+                       ########################
+  113 00000078         ;S11 = *max and S12 = p_observation_given_k
+  114 00000078 EEF5 5A40       VCMP.F32         S11, #0.0   ;if *max < 0
+  115 0000007C EEF1 FA10       VMRS             APSR_nzcv, FPSCR
+  116 00000080 BFB8            IT               LT          ; then
+  117 00000082 2601            MOVLT            R6, #1      ; error = 1
+  118 00000084         
+  119 00000084         ;#########################Assign value and accumulate su
+                       m ######################
+  120 00000084 EE25 1A86       VMUL.F32         S2, S11, S12 ; temp = max * p_o
+                                                            bservation_given_k
+  121 00000088 EB01 058A       ADD              R5, R1, R10, LSL #2
+  122 0000008C         
+  123 0000008C EE70 0A81       VADD.F32         S1, S1, S2  ; sum = sum + temp
+  124 00000090 ED85 1A00       VSTR.F32         S2, [R5]    ; OutputArray[k] = 
+                                                            temp
+  125 00000094         
+  126 00000094         
+  127 00000094 F10A 0A01       ADD              R10, #1     ; k++
+  128 00000098 E7D4            B                LOOP1
+  129 0000009A         
+  130 0000009A         ;#########################Matrix term by term multiplica
+                       tion####################
+  131 0000009A         LOOP2                                ; R9 = x and R10 = 
+                                                            k and R11 = number_
+                                                            of_states and S5 = 
+                                                            InputArray[x] and R
+                                                            4 = hmm->transition
+                                                            
+  132 0000009A 45D9            CMP              R9, R11
+  133 0000009C D0EC            BEQ              BACK2
+  134 0000009E         
+  135 0000009E         ;S6 = value
+  136 0000009E         
+  137 0000009E         ;S6 = get_index(hmm->transition, number_of_states, x, k)
+                       ;
+  138 0000009E FB09 F50B       MUL              R5, R9, R11 ; R5 = x * number_o
+                                                            f_states
+
+
+
+ARM Macro Assembler    Page 4 
+
+
+  139 000000A2 4455            ADD              R5, R5, R10 ; R5 = x * number_o
+                                                            f_states + k
+  140 000000A4 EB04 0585       ADD              R5, R4, R5, LSL #2 ; R5 = addre
+                                                            ss of get_index(hmm
+                                                            ->transition, numbe
+                                                            r_of_states, x, k)
+  141 000000A8 ED95 3A00       VLDR.F32         S6, [R5]    ; S6 = get_index(hm
+                                                            m->transition, numb
+                                                            er_of_states, x, k)
+                                                            ;
+  142 000000AC         
+  143 000000AC         ;S5 = InputArray[x]
+  144 000000AC EA4F 0589       LSL              R5, R9, #2  ; R5 = 4 * x
+  145 000000B0 4405            ADD              R5, R0
+  146 000000B2 EDD5 2A00       VLDR.F32         S5, [R5]
+  147 000000B6         
+  148 000000B6 EE22 3A83       VMUL.F32         S6, S5, S6  ; S6 = InputArray[x
+                                                            ] * get_index(hmm->
+                                                            transition, number_
+                                                            of_states, x, k);
+  149 000000BA         
+  150 000000BA EEB0 1A43       VMOV.F32         S2, S6      ; next element in t
+                                                            emp array
+  151 000000BE EEF4 5A41       VCMP.F32         S11, S2     ; max compare to cu
+                                                            rrent??
+  152 000000C2 EEF1 FA10       VMRS             APSR_nzcv, FPSCR
+  153 000000C6 DA0C            BGE              PASS        ; if max >= current
+                                                            , pass. Else
+  154 000000C8 EEF0 5A41       VMOV.F32         S11, S2     ; max = current
+  155 000000CC         
+  156 000000CC EE03 9A10       VMOV             S6, R9      ; max_index = x
+  157 000000D0 EEB8 3AC3       VCVT.F32.S32     S6, S6      ; convert from int 
+                                                            --> float
+  158 000000D4         
+  159 000000D4 EB0A 050B       ADD              R5, R10, R11 ; R5 = k + number_
+                                                            of_states
+  160 000000D8 EA4F 0585       LSL              R5, #2      ; R5 = R5 * 4
+  161 000000DC 440D            ADD              R5, R5, R1
+  162 000000DE ED85 3A00       VSTR.F32         S6, [R5]    ; OutputArray[numbe
+                                                            r_of_states + k] = 
+                                                            max_index
+  163 000000E2         
+  164 000000E2         
+  165 000000E2         PASS
+  166 000000E2 F109 0901       ADD              R9, #1
+  167 000000E6 E7D8            B                LOOP2
+  168 000000E8         
+  169 000000E8         
+  170 000000E8         ;#########################Divide by sum ################
+                       ########################
+  171 000000E8         LOOP3                                ;R10 = k and R11 = 
+                                                            number_of_states an
+                                                            d S1 = sum
+  172 000000E8 45DA            CMP              R10, R11
+  173 000000EA D0A7            BEQ              BACK3
+  174 000000EC         
+  175 000000EC 4654            MOV              R4, R10
+  176 000000EE EA4F 0484       LSL              R4, #2
+  177 000000F2 440C            ADD              R4, R1
+
+
+
+ARM Macro Assembler    Page 5 
+
+
+  178 000000F4 ED94 1A00       VLDR.F32         S2, [R4]    ; temp =  OutputArr
+                                                            ay[k]
+  179 000000F8 EE81 1A20       VDIV.F32         S2, S2, S1  ; temp = temp / sum
+                                                            
+  180 000000FC ED84 1A00       VSTR.F32         S2, [R4]    ; OutputArray[k] = 
+                                                            temp
+  181 00000100         
+  182 00000100 F10A 0A01       ADD              R10, #1
+  183 00000104         
+  184 00000104 E7F0            B                LOOP3
+  185 00000106         
+  186 00000106                 ENDFUNC
+  187 00000106                 END
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
+erwork --depend=.\object\viterbiupdate_asm.d -o.\object\viterbiupdate_asm.o -I"
+C:\Users\rchaga2\Downloads\Microprocessor-Fall-2015-master\Lab1\Lab 1 Base Proj
+ect\RTE" -I"C:\Users\rchaga2\Downloads\Microprocessor-Fall-2015-master\Lab1\Lab
+ 1 Base Project\RTE\Device\STM32F407VG" -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\C
+MSIS\Include -IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include --pr
+edefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 515" --predefin
+e="_RTE_ SETA 1" --predefine="STM32F40_41xxx SETA 1" --list=.\listings\viterbiu
+pdate_asm.lst source\ViterbiUpdate_asm.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+BACK1 0000002A
+
+Symbol: BACK1
+   Definitions
+      At line 68 in file source\ViterbiUpdate_asm.s
+   Uses
+      At line 91 in file source\ViterbiUpdate_asm.s
+Comment: BACK1 used once
+BACK2 00000078
+
+Symbol: BACK2
+   Definitions
+      At line 111 in file source\ViterbiUpdate_asm.s
+   Uses
+      At line 133 in file source\ViterbiUpdate_asm.s
+Comment: BACK2 used once
+BACK3 0000003C
+
+Symbol: BACK3
+   Definitions
+      At line 79 in file source\ViterbiUpdate_asm.s
+   Uses
+      At line 173 in file source\ViterbiUpdate_asm.s
+Comment: BACK3 used once
+LOOP1 00000044
+
+Symbol: LOOP1
+   Definitions
+      At line 89 in file source\ViterbiUpdate_asm.s
+   Uses
+      At line 67 in file source\ViterbiUpdate_asm.s
+      At line 128 in file source\ViterbiUpdate_asm.s
+
+LOOP2 0000009A
+
+Symbol: LOOP2
+   Definitions
+      At line 131 in file source\ViterbiUpdate_asm.s
+   Uses
+      At line 110 in file source\ViterbiUpdate_asm.s
+      At line 167 in file source\ViterbiUpdate_asm.s
+
+LOOP3 000000E8
+
+Symbol: LOOP3
+   Definitions
+      At line 171 in file source\ViterbiUpdate_asm.s
+   Uses
+      At line 78 in file source\ViterbiUpdate_asm.s
+      At line 184 in file source\ViterbiUpdate_asm.s
+
+PASS 000000E2
+
+Symbol: PASS
+   Definitions
+      At line 165 in file source\ViterbiUpdate_asm.s
+   Uses
+      At line 153 in file source\ViterbiUpdate_asm.s
+Comment: PASS used once
+
+
+
+ARM Macro Assembler    Page 2 Alphabetic symbol ordering
+Relocatable symbols
+
+ViterbiUpdate_asm 00000000
+
+Symbol: ViterbiUpdate_asm
+   Definitions
+      At line 50 in file source\ViterbiUpdate_asm.s
+   Uses
+      At line 2 in file source\ViterbiUpdate_asm.s
+Comment: ViterbiUpdate_asm used once
+text 00000000
+
+Symbol: text
+   Definitions
+      At line 1 in file source\ViterbiUpdate_asm.s
+   Uses
+      None
+Comment: text unused
+9 symbols
+344 symbols in table

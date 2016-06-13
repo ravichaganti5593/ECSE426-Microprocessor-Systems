@@ -1,0 +1,16 @@
+--cpu Cortex-M4.fp
+".\object\fputc_debug.o"
+".\object\main.o"
+".\object\utils.o"
+".\object\viterbi.o"
+".\object\viterbiupdate_asm.o"
+".\object\test.o"
+".\object\data.o"
+".\object\assembly_test.o"
+"C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Lib\ARM\arm_cortexM4lf_math.lib"
+".\object\startup_stm32f40_41xxx.o"
+".\object\system_stm32f4xx.o"
+--library_type=microlib --strict --scatter ".\object\Lab 1 Base Project.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\listings\Lab 1 Base Project.map" -o ".\object\Lab 1 Base Project.axf"
